@@ -42,5 +42,11 @@
     <ClCompile Include="setprecision.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Range-based_for.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Initial_list.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
