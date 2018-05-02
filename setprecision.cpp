@@ -10,5 +10,5 @@ int main() {
 	cout << fixed << setprecision(5) << f << '\n';     // 5자리까지 출력
 	cout << fixed << setprecision(8) << f << '\n';     // 8자리까지 출력
 	cout << fixed << setprecision(10) << f << '\n';    // 10자리까지 출력
-	return 0 ;
+	return 0;
 }
