@@ -102,5 +102,14 @@
     <ClCompile Include="10816.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="1076.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="1764.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
