@@ -47,22 +47,11 @@ int main() {
 			}*/
 
 			// 내가 풀었지만 왜 틀렸는지 이해가 안되는 부분
-			/*a.erase(it);
+			a.erase(it);             // it랑 temp랑 가리키는게 달라야할까요?
 			for (int i = 0; i < step; i++) {
 				if (temp == a.begin()) {
 					temp = a.end();
-					--temp;
 				}
-				else {
-					--temp;
-				}
-			}
-			it = temp;*/
-
-			if (temp == a.begin()) temp = a.end();
-			temp--;
-			for (int i = 1; i < step; i++) {
-				if (temp == a.begin()) temp = a.end();
 				--temp;
 			}
 			it = temp;
