@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-// ¿À¹ö·ÎµùÀ» È°¿ëÇÑ ¹æ¹ı - ¼ö¾÷ ÀÚ·á Âü°íÇÔ
+// êµ¬ì¡°ì²´ì™€ ì—°ì‚°ì ì˜¤ë²„ë¡œë”©ì„ ì´ìš©í•œ ë°©ë²•
 struct Point {
 	int x, y;
 	bool operator < (const Point &v) const {

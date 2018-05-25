@@ -15,7 +15,8 @@ int main() {
 		s.push_back(make_pair(a, b));
 	}
 
-	sort(s.begin(), s.end());  // pair¸¦ Á¤·ÄÇÏ¸é ¸ÕÀú first¼ø¼­´ë·Î Á¤·ÄÇÏ°í ÀÌÈÄ second Á¤·Ä
+	// firstë¥¼ ë¹„êµí•˜ê³  ì´ê²Œ ê°™ìœ¼ë©´ secondë¥¼ ë¹„êµí•˜ì—¬ ì •ë ¬í•œë‹¤
+	sort(s.begin(), s.end());  
 
 	for (auto x : s) {
 		cout << x.first << ' ' << x.second << '\n';
