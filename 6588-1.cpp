@@ -1,15 +1,14 @@
-#include <iostream>
+#include <cstdio>
 using namespace std;
 
-
+const long long MAX = 1000000;
+bool check[MAX + 1] = {0, };  // true : ì†Œìˆ˜ê°€ ì•„ë‹Œ ìˆ˜, false : ì†Œìˆ˜ì¸ ìˆ˜
 
 int main() {
-	const int MAX = 100000;
-	bool check[MAX + 1];  // true : Áö¿öÁü, false : Áö¿öÁöÁö ¾ÊÀ½
 	int prime[MAX];
-	int pn;
+	int pn=0;
 
-
+// ì—ë¼í† ìŠ¤í…Œë„¤ìŠ¤ì˜ ì²´ë¥¼ ì´ìš©
 	for (long long i = 2; i*i < MAX; i++) {
 		if (check[i] == false) {
 			prime[pn++] = i;
@@ -21,12 +20,13 @@ int main() {
 
 	while (1) {
 		int n;
-		cin >> n;
+		scanf("%d", &n);
 		if (n == 0) break;
 
 		for (int i = 1; i < pn; i++) {
 			if (check[n - prime[i]] == false) {
-				cout << n << " = " << prime[i] << " + " << n-prime[i]  << '\n';
+				printf("%d = %d + %d\n", n, prime[i], n-prime[i]);
+				// cout << n << " = " << prime[i] << " + " << n-prime[i]  << '\n';
 				break;
 			}
 		}
