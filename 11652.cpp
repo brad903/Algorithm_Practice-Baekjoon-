@@ -17,16 +17,21 @@ int main(){
     sort(v.begin(), v.end());
 
     int cnt=1;
-    long long ans=1;
+    int last=1; // for 반복문 안 마지막 cnt값 기억
+    long long ans=v[0];
     for(int i=1; i<v.size(); i++){
         if(v[i-1] != v[i]){
-            if(ans < cnt) ans = v[i-1];
+            if(last < cnt){
+                ans = v[i-1];
+                last = cnt;
+            } 
             cnt = 1;
         } else {
             cnt++;
         }
     }
-    if(ans < cnt) ans = v[v.size()-1];
+
+    if(last < cnt) ans = v[v.size()-1];
 
     cout << ans << '\n';
 
