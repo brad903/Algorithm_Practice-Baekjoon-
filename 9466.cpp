@@ -2,32 +2,23 @@
 #include <vector>
 using namespace std;
 
-vector<int> a(100001);
-int check[100001] = {0, };
+int a[100001];
+int check[100001];
+int num[100001]; // 각 스텝별 카운트
 int pass = 0;  // 조를 이룬 사람들의 전체 수
-vector<int> temp;
+int cnt = 0;
 
 void dfs(int x, int c){
-    // printf("x: %d, check[x]: %d, c : %d\n", x, check[x], c);
-    if(check[x] == -1) return;  // -1로 처리된 얘가 있으면 바로 끝내버려
-    if(check[x] == c && x == c) {  // 사이클이 이루어져 조가 만들어진 경우
-        // if(x != c) return; // 사이클과 아닌 것이 섞여잇는 경우
-        pass += temp.size();
-        for(int i=0; i<temp.size(); i++){
-            check[temp[i]] = -1;
-        }
+    if(check[x] == c) { 
+        pass += (cnt - num[x] + 1);
         return;
     }
-    // if(x != c && a[x] == x) return;  // 다른 얘가 혼자 조하겠다고 한 얘를 선택한 경우
+    if(check[x] != 0) return;
+    cnt++;
+    num[x] = cnt;
     check[x] = c;
-    temp.push_back(x);
+    // printf("x: %d, a[x]: %d, check[x]: %d, num[x]: %d, cnt: %d\n", x, a[x], check[x], num[x], cnt);
     dfs(a[x], c);
-}
-
-void init(int *a){
-    for(int i=0; i<=100000; i++){
-        a[i] = 0;
-    }
 }
 
 int main(){
@@ -38,31 +29,24 @@ int main(){
         scanf("%d", &m);
 
         for(int i=1; i<=m; i++){
-            int num;
-            scanf("%d", &num);
-            a[i] = num;
+            int x;
+            scanf("%d", &x);
+            a[i] = x;
+            num[i] = 0;
+            check[i] = 0;
         }
-
+        
         for(int i=1; i<=m; i++){
-            if(a[i] == i){  // 자기 혼자 조 하는 경우
-                check[i] = -1;
-                pass += 1;
-            }
-        }
-
-        for(int i=1; i<=m; i++){
-            if(check[i] != -1){
+            cnt = 0;
+            if(check[i] == 0){
                 int c = i;
                 dfs(i, c);
-                temp.clear();
             }
         }
 
-        printf("%d\n", m-pass);
+        printf("%d\n", m - pass);
 
         pass = 0;
-        init(check);
-        a.clear();
     }
     
     return 0;
