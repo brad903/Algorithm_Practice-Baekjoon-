@@ -37,22 +37,22 @@ public class Main {
             graph.get(vals[1]).add(new Graph(vals[0], vals[2]));
         }
 
+        for (List<Graph> graphs : graph) {
+            Collections.sort(graphs);  // 각 정점에서 가중치 큰 것 순서대로 정렬
+        }
+
         dfs(startNum, 1000000);
 
-        // for debug
-        for (Integer answer : answers) {
-            System.out.print(answer + " ");
-        }
-//        if(answers.isEmpty()) System.out.println(0);
-//        else System.out.println(Collections.max(answers));
+        if(answers.isEmpty()) System.out.println(0);
+        else System.out.println(Collections.max(answers));
     }
 
     static void dfs(int x, int min) {
         check[x] = true;
         for (int i = 0; i < graph.get(x).size(); i++) {
-//            if(!answers.isEmpty()) {
-//                if(min <= Collections.max(answers)) return;
-//            }
+            if(!answers.isEmpty()) {  // answers에 더 큰수가 있으면 더이상 탐색말고 종료
+                if(min <= Collections.max(answers)) return;
+            }
             int tempEnd = graph.get(x).get(i).end;
             int tempWeight = graph.get(x).get(i).weight;
             int tempMin = Math.min(tempWeight, min);
@@ -68,12 +68,17 @@ public class Main {
     }
 }
 
-class Graph {
+class Graph implements Comparable {
     int weight;
     int end;
 
     public Graph(int end, int weight) {
         this.weight = weight;
         this.end = end;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return ((Graph)o).weight - weight;
     }
 }
