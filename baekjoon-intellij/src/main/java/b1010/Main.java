@@ -19,13 +19,22 @@ public class Main {
             int[] arr = toArray(br.readLine());
             int N = arr[1];
             int M = arr[0];
-            if(N == M) {
+            if (N == M) {
                 System.out.println(1);
                 continue;
             }
-            long num = factoryMethod(N) / (factoryMethod(N - M) * factoryMethod(M));
+            long num = upperPart(N, M) / factoryMethod(M);
             System.out.println(num);
         }
+    }
+
+    public static long upperPart(int n, int i) {
+        long num = 1;
+        for (int j = 0; j < i; j++) {
+            num *= n;
+            n--;
+        }
+        return num;
     }
 
     private static int[] toArray(String readLine) {
@@ -34,7 +43,7 @@ public class Main {
     }
 
     public static long factoryMethod(int n) {
-        if(nums[n] > 0) return nums[n];
+        if (nums[n] > 0) return nums[n];
         nums[n] = n * factoryMethod(n - 1);
         return nums[n];
     }

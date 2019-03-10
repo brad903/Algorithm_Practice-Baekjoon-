@@ -17,4 +17,9 @@ public class MainTest {
     public void factoryMethod2() {
         System.out.println(Main.factoryMethod(20));
     }
+
+    @Test
+    public void upperPart() {
+        System.out.println(Main.upperPart(7, 3));
+    }
 }
