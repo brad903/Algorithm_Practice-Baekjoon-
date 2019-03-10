@@ -20,6 +20,6 @@ public class MainTest {
 
     @Test
     public void upperPart() {
-        System.out.println(Main.upperPart(7, 3));
+        System.out.println(Main.upperPart(7, 5));
     }
 }

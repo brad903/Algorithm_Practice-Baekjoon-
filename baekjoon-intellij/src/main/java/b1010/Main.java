@@ -23,6 +23,7 @@ public class Main {
                 System.out.println(1);
                 continue;
             }
+            if(N - M < M) M = N - M;
             long num = upperPart(N, M) / factoryMethod(M);
             System.out.println(num);
         }
