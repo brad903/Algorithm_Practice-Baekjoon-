@@ -15,29 +15,33 @@ public class Main {
         int remaining = -1;
         int time = 0;
         while (!meetings.isEmpty() || remaining >= 0) {
-            boolean chekced = false;
-            if (remaining < 0) {
+            boolean checked = false;
+
+            if (remaining <= 0 && !meetings.isEmpty() && meetings.peek().start == time) {
                 Meeting meeting = meetings.poll();
+                if (meeting.gap == 0) {
+                    answer++;
+                    checked = true;
+                }
                 remaining = meeting.gap;
-                time = meeting.start;
             }
 
             while (!meetings.isEmpty() && meetings.peek().start == time) {
-                Meeting mayChange = meetings.poll();
-                if(mayChange.gap == 0) {
+                Meeting next = meetings.poll();
+                if (next.gap == 0) {
                     answer++;
-                    chekced = true;
+                    checked = true;
                 }
-                if (mayChange.gap < remaining) {
-                    remaining = mayChange.gap;
+                if (next.gap < remaining || remaining == 0) {
+                    remaining = next.gap;
+                    checked = false;
                 }
             }
 
-            System.out.println(String.format("time : %d, remaining : %d, answer : %d", time, remaining, answer));
-
-            if(!chekced && remaining == 0) answer++;
             remaining--;
             time++;
+
+            if (!checked && remaining == 0) answer++;
         }
 
         System.out.println(answer);
@@ -70,6 +74,9 @@ public class Main {
 
         @Override
         public int compareTo(Meeting o) {
+            if (this.start == o.start) {
+                return this.end - o.end;
+            }
             return this.start - o.start;
         }
 
