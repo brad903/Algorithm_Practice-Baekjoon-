@@ -3,37 +3,24 @@ package b1931;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-public class Main {
+public class Main2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         Queue<Meeting> meetings = getMeetings(n, br);
 
         int answer = 0;
-        int remaining = -1;
-        int time = 0;
-        while (!meetings.isEmpty() || remaining >= 0) {
-            boolean checked = false;
+        int curTime = 0;
+        while (!meetings.isEmpty()) {
+            Meeting meeting = meetings.poll();
 
-            while (!meetings.isEmpty() && meetings.peek().start == time) {
-                Meeting next = meetings.poll();
-                if (next.gap == 0) {
-                    answer++;
-                    checked = true;
-                }
-
-                if (next.gap < remaining || remaining <= 0) {
-                    remaining = next.gap;
-                    checked = false;
-                }
+            if (meeting.start >= curTime) {
+                curTime = meeting.end;
+                answer++;
             }
-
-            remaining--;
-            time++;
-
-            if (!checked && remaining == 0) answer++;
         }
 
         System.out.println(answer);
@@ -66,10 +53,10 @@ public class Main {
 
         @Override
         public int compareTo(Meeting o) {
-            if (this.start == o.start) {
-                return this.end - o.end;
+            if (this.end == o.end) {
+                return this.start - o.start;
             }
-            return this.start - o.start;
+            return this.end - o.end;
         }
 
         @Override
