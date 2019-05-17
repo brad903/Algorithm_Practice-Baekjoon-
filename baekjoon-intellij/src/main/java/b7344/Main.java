@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -19,15 +20,16 @@ public class Main {
             List<Point> points = init(count, nums);
 
             int answer = 0;
-            while(!points.isEmpty()) {
-                answer++;
-                Iterator<Point> iterator = points.iterator();
-                Point target = iterator.next();
-                iterator.remove();
-                while(iterator.hasNext()) {
-                    Point next = iterator.next();
-                    if(next.x >= target.x && next.y >= target.y) {
-                        iterator.remove();
+            for (int l = 0; l < points.size(); l++) {
+                if(!points.get(l).visit) {
+                    answer ++;
+                    int innerY = points.get(l).y;
+
+                    for (int j = l + 1; j < points.size(); j++) {
+                        if(!points.get(j).visit && innerY <= points.get(j).y) {
+                            points.get(j).visit = true;
+                            innerY = points.get(j).y;
+                        }
                     }
                 }
             }
@@ -48,6 +50,7 @@ public class Main {
     public static class Point implements Comparable<Point> {
         private int x;
         private int y;
+        private boolean visit = false;
 
         public Point(String x, String y) {
             this.x = Integer.parseInt(x);
