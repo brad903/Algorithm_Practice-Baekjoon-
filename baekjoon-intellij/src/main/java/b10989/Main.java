@@ -4,7 +4,8 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
             int n = Integer.parseInt(br.readLine());
             int[] nums = new int[10001];
 
@@ -13,13 +14,10 @@ public class Main {
                 nums[num]++;
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
-                for (int i = 0; i <= 10000; i++) {
-                    for (int j = 0; j < nums[i]; j++) {
-                        bw.write(i + "\n");
-                    }
+            for (int i = 0; i <= 10000; i++) {
+                for (int j = 0; j < nums[i]; j++) {
+                    bw.write(i + "\n");
                 }
-                bw.flush();
             }
 
         } catch (IOException e) {
