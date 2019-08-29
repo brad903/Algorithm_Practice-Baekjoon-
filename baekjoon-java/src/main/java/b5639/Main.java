@@ -5,17 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-
     public static void main(String[] args) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            Node root = new Node(Integer.parseInt(br.readLine()), null);
-            String input = br.readLine();
-            while (input != null) {
+            Node root = new Node(Integer.parseInt(br.readLine()));
+            String input;
+            while ((input = br.readLine()) != null) {
                 int value = Integer.parseInt(input);
-                root = root.addValue(value);
-                input = br.readLine();
+                root = root.addValue(root, value);
             }
-            root = backToRoot(root);
             travel(root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -28,37 +25,26 @@ public class Main {
         System.out.println(root.value);
     }
 
-    private static Node backToRoot(Node root) {
-        while (root.root != null) {
-            root = root.root;
-        }
-        return root;
-    }
-
     public static class Node {
         private int value;
-        private Node root;
         private Node left;
         private Node right;
 
-        public Node(int value, Node root) {
+        public Node(int value) {
             this.value = value;
-            this.root = root;
             this.left = null;
             this.right = null;
         }
 
-        public Node addValue(int value) {
-            if (value < this.value) {
-                return this.left = new Node(value, this);
+        public Node addValue(Node node, int value) {
+            if(node == null) return new Node(value);
+            if (node.value > value) {
+                node.left = addValue(node.left, value);
             }
-            if (root != null && value > this.root.value) {
-                return this.root.addValue(value);
+            if (node.value < value) {
+                node.right = addValue(node.right, value);
             }
-            if (value > this.value) {
-                return this.right = new Node(value, this);
-            }
-            return this;
+            return node;
         }
     }
 }
