@@ -7,30 +7,32 @@ const colLength = data[1];
 const direction = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 const map = initMap(input, rowLength);
-var visit = initVisit(rowLength, colLength);
+var memo = initMemo(rowLength, colLength);
 var count = 0;
 
-dfs(0, 0);
+const result = dfs(rowLength - 1, colLength - 1);
 
-console.log(count);
+console.log(result);
 
 function dfs(row, col) {
-    if(row == rowLength - 1 && col == colLength - 1) count++;
+    if (memo[row][col] != -1) return memo[row][col];
+    if (row == 0 && col == 0) return 1;
 
-    visit[row][col] = true;
+    memo[row][col] = 0;
     for (let index = 0; index < direction.length; index++) {
         let nextRow = row + direction[index][0];
         let nextCol = col + direction[index][1];
 
-        if (isValidIndex(nextRow, nextCol) && isValidPoint(map[row][col], map[nextRow][nextCol]) && !visit[nextRow][nextCol]) {
-            dfs(nextRow, nextCol);
+        if (isValidIndex(nextRow, nextCol) && isValidPoint(map[row][col], map[nextRow][nextCol])) {
+            memo[row][col] += dfs(nextRow, nextCol);
         }
     }
-    visit[row][col] = false;
+
+    return memo[row][col];
 }
 
 function isValidPoint(previous, next) {
-    return next < previous;
+    return next > previous;
 }
 
 function isValidIndex(row, col) {
@@ -45,12 +47,12 @@ function initMap(input, rowLength) {
     return arr;
 }
 
-function initVisit(rowLength, colLength) {
+function initMemo(rowLength, colLength) {
     let arr = [];
     for (let row = 0; row < rowLength; row++) {
         let temp = [];
         for (let col = 0; col < colLength; col++) {
-            temp.push(false);
+            temp.push(-1);
         }
         arr.push(temp);
     }
