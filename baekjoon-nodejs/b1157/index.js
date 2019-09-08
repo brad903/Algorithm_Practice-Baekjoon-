@@ -3,7 +3,7 @@ var input = fs.readFileSync('./stdin').toString().toUpperCase();
 var arr = new Array(26).fill(0);
 
 for (let i = 0; i < input.length; i++) {
-    arr[input.charCodeAt(i) - 65]++;
+    arr[input.charCodeAt(i) - 'A'.charCodeAt(0)]++;
 }
 
 var result = '?'
