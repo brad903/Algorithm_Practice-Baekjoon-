@@ -8,7 +8,6 @@ const direction = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 const map = initMap(input, rowLength);
 var memo = initMemo(rowLength, colLength);
-var count = 0;
 
 const result = dfs(rowLength - 1, colLength - 1);
 
