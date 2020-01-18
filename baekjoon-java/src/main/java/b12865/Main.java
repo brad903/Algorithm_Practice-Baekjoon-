@@ -6,25 +6,26 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] s = br.readLine().split(" ");
-        int itemNum = Integer.parseInt(s[0]);
-        int maxWeight = Integer.parseInt(s[1]);
-        int[][] dp = new int[itemNum + 1][maxWeight + 1];
+        String[] m = br.readLine().split(" ");
+        final int N = Integer.parseInt(m[0]);
+        final int C = Integer.parseInt(m[1]);
+        // dp[a][b] : a개 선택하고 b 용량에서 가장 최고의 가치
+        int[][] dp = new int[N + 1][C + 1];
 
-        for (int i = 1; i <= itemNum; i++) {  // 처음부분은 따로 설정할 필요없게 비워있는 0인덱스 추가
-            String[] ss = br.readLine().split(" ");
-            int itemWeight = Integer.parseInt(ss[0]);
-            int itemValue = Integer.parseInt(ss[1]);
+        for (int i = 1; i <= N; i++) {
+            String[] t = br.readLine().split(" ");
+            int w = Integer.parseInt(t[0]);
+            int v = Integer.parseInt(t[1]);
 
-            for (int j = 0; j <= maxWeight; j++) {
-                if(j < itemWeight) {  // 자기 무게 되기전까진 앞의 무게 그대로 사용
+            for (int j = 0; j <= C; j++) {
+                if (j < w) {
                     dp[i][j] = dp[i - 1][j];
                     continue;
                 }
 
-                dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - itemWeight] + itemValue);
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - w] + v);
             }
         }
-        System.out.println(dp[itemNum][maxWeight]);
+        System.out.println(dp[N][C]);
     }
 }
